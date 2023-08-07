@@ -18,7 +18,7 @@ type Service struct {
 
 func NewService(db *sql.DB) *Service {
 	return &Service{
-		store:  UserStore{db: db},
+		store:  UserStore{db},
 		logger: *logrus.New(),
 	}
 }

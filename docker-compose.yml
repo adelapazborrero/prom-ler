@@ -1,5 +1,6 @@
 version: "3.9"
 services:
+  #application
   app:
     image: abeldlp/prom-ler-api
     container_name: prom-ler-api
@@ -8,6 +9,10 @@ services:
       context: .
     ports:
       - 8080:8080
+    depends_on:
+      app-db:
+        condition: service_healthy
+  #prometheus instance
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -19,6 +24,7 @@ services:
     volumes:
       - ./prometheus:/etc/prometheus
       - prom_data:/prometheus
+ #grafana instance
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -30,5 +36,24 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - ./grafana:/etc/grafana/provisioning/datasources
+ #database
+  app-db:
+    image: postgres
+    container_name: prom-ler-db 
+    environment:
+      POSTGRES_DB: "prom-ler-db"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_ROOT_PASSWORD: "password"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d app-db -U user"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    ports:
+      - "5432:5432"
+    volumes:
+      - app-db-volume:/var/lib/mysql
 volumes:
   prom_data:
+  app-db-volume:
