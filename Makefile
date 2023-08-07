@@ -1,4 +1,4 @@
-build:
+main:
 	@echo "Building project...\n"
 	@go build -o bin/main cmd/main.go
 	@echo "Project built...\n"
