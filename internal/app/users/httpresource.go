@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/sirupsen/logrus"
 )
 
 type UserHttpResource struct {
@@ -20,8 +19,6 @@ func NewHTTPResource(db *sql.DB) UserHttpResource {
 }
 
 func (u UserHttpResource) FindUsersById(w http.ResponseWriter, r *http.Request) {
-	logrus.Info("FindUsersById")
-
 	vars := mux.Vars(r)
 	userId := vars["id"]
 
