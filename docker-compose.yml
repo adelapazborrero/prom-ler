@@ -46,7 +46,7 @@ services:
       POSTGRES_PASSWORD: "password"
       POSTGRES_ROOT_PASSWORD: "password"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d app-db -U user"]
+      test: ["CMD-SHELL", "pg_isready -d prom-ler-db -U user"]
       interval: 5s
       timeout: 5s
       retries: 20

@@ -7,7 +7,7 @@ import (
 )
 
 type IUserStore interface {
-	GetById(id string) *User
+	GetById(id string) (*User, error)
 	Insert(user *User) error
 }
 
@@ -24,11 +24,20 @@ func NewService(db *sql.DB) *Service {
 }
 
 func (s *Service) GetById(id string) *User {
-	user := s.store.GetById(id)
-	if user == nil {
-		s.logger.Info("Failed to fetch a user", "id", id)
+	user, err := s.store.GetById(id)
+	if err != nil {
+		s.logger.Info("Failed to fetch a user", "id", id, "error", err)
 		return nil
 	}
 
 	return user
+}
+
+func (s *Service) Insert(user *User) error {
+	err := s.store.Insert(user)
+	if err != nil {
+		s.logger.Info("Failed to insert user", "username", user.Username, "email", user.Email)
+		return nil
+	}
+	return nil
 }
