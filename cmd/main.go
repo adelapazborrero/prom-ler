@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/adelapazborrero/prom-ler/config"
+	"github.com/adelapazborrero/prom-ler/internal/infra/config"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	log "github.com/sirupsen/logrus"

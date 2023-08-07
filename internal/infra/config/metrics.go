@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/adelapazborrero/prom-ler/internal/metrics"
+	"github.com/adelapazborrero/prom-ler/internal/infra/metrics"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
