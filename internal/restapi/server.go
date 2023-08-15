@@ -5,11 +5,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/adelapazborrero/prom-ler/internal/app/users"
 	"github.com/gorilla/mux"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
+
+	"github.com/adelapazborrero/prom-ler/internal/app/users"
 )
 
 type HTTPServer struct {

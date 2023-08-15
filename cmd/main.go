@@ -3,9 +3,11 @@ package main
 import (
 	"net/http"
 
+	"github.com/adelapazborrero/ds"
+	"github.com/prometheus/client_golang/prometheus"
+
 	"github.com/adelapazborrero/prom-ler/internal/infra/config"
 	"github.com/adelapazborrero/prom-ler/internal/restapi"
-	"github.com/prometheus/client_golang/prometheus"
 )
 
 func pingHandler(w http.ResponseWriter, r *http.Request) {
@@ -14,6 +16,10 @@ func pingHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	//METRICS
+	stack := ds.NewStack[string]()
+	q := ds.NewQueue[string]()
+	stack.Add("hi")
+	q.Add("hello")
 	prom := config.InitializePrometheus()
 	prom.Metrics.CpuTemp.Set(65.3)
 	prom.Metrics.HdFailures.With(prometheus.Labels{"device": "/dev/sda"}).Inc()
